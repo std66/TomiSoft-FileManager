@@ -1,0 +1,41 @@
+﻿<Window x:Class="WpfApplication2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TomiSoft FileManager" Height="591.075" Width="748">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="39*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="33"/>
+        </Grid.RowDefinitions>
+
+        <ListView Margin="10" Grid.Row="1" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Név"/>
+                    <GridViewColumn Width="30" Header="Kit."/>
+                    <GridViewColumn Width="50" Header="Méret"/>
+                    <GridViewColumn Width="100" Header="Módosítva"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView Margin="10" Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Név"/>
+                    <GridViewColumn Width="30" Header="Kit."/>
+                    <GridViewColumn Width="50" Header="Méret"/>
+                    <GridViewColumn Width="100" Header="Módosítva"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="20" Grid.RowSpan="2" Name="cbDriveLeft"/>
+        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="20" Grid.RowSpan="2" Name="cbDriveRight"/>
+    </Grid>
+</Window>
