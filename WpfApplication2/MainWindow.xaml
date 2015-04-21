@@ -1,7 +1,11 @@
 ﻿<Window x:Class="WpfApplication2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfApplication2"
         Title="TomiSoft FileManager" Height="591.075" Width="748">
+    <Window.Resources>
+        <local:FileSystemItemConverter x:Key="FileSystemItemConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*"/>
@@ -12,14 +16,14 @@
             <RowDefinition/>
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
-
+        
         <ListView Margin="10" Grid.Row="1" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név"/>
-                    <GridViewColumn Width="30" Header="Kit."/>
-                    <GridViewColumn Width="50" Header="Méret"/>
-                    <GridViewColumn Width="100" Header="Módosítva"/>
+                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
+                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Path=Size}"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastAccess}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -27,10 +31,10 @@
         <ListView Margin="10" Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név"/>
-                    <GridViewColumn Width="30" Header="Kit."/>
+                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
                     <GridViewColumn Width="50" Header="Méret"/>
-                    <GridViewColumn Width="100" Header="Módosítva"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastAccess}"/>
                 </GridView>
             </ListView.View>
         </ListView>
