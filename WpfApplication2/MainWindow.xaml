@@ -16,10 +16,10 @@
         <ListView Margin="10" Grid.Row="1" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név"/>
-                    <GridViewColumn Width="30" Header="Kit."/>
-                    <GridViewColumn Width="50" Header="Méret"/>
-                    <GridViewColumn Width="100" Header="Módosítva"/>
+                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
+                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Path=Size}"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastModified}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -27,10 +27,10 @@
         <ListView Margin="10" Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név"/>
-                    <GridViewColumn Width="30" Header="Kit."/>
-                    <GridViewColumn Width="50" Header="Méret"/>
-                    <GridViewColumn Width="100" Header="Módosítva"/>
+                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
+                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Path=Size}"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastModified}"/>
                 </GridView>
             </ListView.View>
         </ListView>

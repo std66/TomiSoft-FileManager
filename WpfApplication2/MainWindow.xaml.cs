@@ -49,32 +49,11 @@ namespace WpfApplication2
             this.LeftDirectoryHandler = new DirectoryHandler(DriveInfo.GetDrives()[0].RootDirectory.FullName);
             this.RightDirectoryHandler = new DirectoryHandler(DriveInfo.GetDrives()[0].RootDirectory.FullName);
 
-            this.LeftDirectoryHandler.PathChanged += (o, e) => this.UpdateWindow(e, lwLeftWindow);
-            this.RightDirectoryHandler.PathChanged += (o, e) => this.UpdateWindow(e, lwRightWindow);
+			this.lwLeftWindow.ItemsSource = this.LeftDirectoryHandler.Contents;
+			this.lwRightWindow.ItemsSource = this.RightDirectoryHandler.Contents;
 
-            this.LeftDirectoryHandler.Update();
-            this.RightDirectoryHandler.Update();
-        }
-
-        private void UpdateWindow(List<FileSystemInfo> Contents, ListView Target)
-        {
-            Target.Items.Clear();
-
-            foreach (var Current in Contents)
-            {
-                if (Current is DirectoryInfo)
-                {
-                    var x = new
-                    {
-                        Name = Current.Name,
-                        Ext = "",
-                        Size = "<DIR>",
-                        LastAccess = Current.LastAccessTime.ToString()
-                    };
-
-                    Target.Items.Add(x);
-                }
-            }
+			this.LeftDirectoryHandler.Update();
+			this.RightDirectoryHandler.Update();
         }
     }
 }

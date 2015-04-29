@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace WpfApplication2
 {
@@ -11,7 +12,7 @@ namespace WpfApplication2
     {
         private string rootPath;
 
-        public event EventHandler<List<FileSystemInfo>> PathChanged;
+		public readonly ObservableCollection<FileSystemItem> Contents = new ObservableCollection<FileSystemItem>();
 
         public string RootPath
         {
@@ -35,26 +36,19 @@ namespace WpfApplication2
                 throw new IOException("Ilyen könyvtár nem létezik");
 
             this.rootPath = RootPath;
-
-            this.GetContents();
         }
 
         public void Update()
         {
-            this.GetContents();
-        }
+			this.Contents.Clear();
 
-        private void GetContents()
-        {
-            List<FileSystemInfo> Contents = new List<FileSystemInfo>();
+			DirectoryInfo Info = new DirectoryInfo(this.rootPath);
 
-            DirectoryInfo Info = new DirectoryInfo(this.rootPath);
+			foreach (DirectoryInfo i in Info.GetDirectories().OrderBy((x) => x.Name))
+				this.Contents.Add(new FileSystemItem(i));
 
-            Contents.AddRange(Info.GetDirectories().OrderBy((x) => x.Name));
-            Contents.AddRange(Info.GetFiles().OrderBy((x) => x.Name));
-
-            if (this.PathChanged != null)
-                this.PathChanged(this, Contents);
+			foreach (FileInfo i in Info.GetFiles().OrderBy((x) => x.Name))
+				this.Contents.Add(new FileSystemItem(i));
         }
     }
 }
