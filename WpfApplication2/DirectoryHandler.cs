@@ -26,7 +26,8 @@ namespace WpfApplication2
         {
             get
             {
-                return this.rootPath.Split('\\').Length == 1;
+				string[] Parts = this.rootPath.Split(@"\".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return Parts.Length == 1;
             }
         }
 
@@ -41,6 +42,10 @@ namespace WpfApplication2
         public void Update()
         {
 			this.Contents.Clear();
+
+			if (!this.IsRoot) {
+				this.Contents.Add(new FileSystemItem("[..]"));
+			}
 
 			DirectoryInfo Info = new DirectoryInfo(this.rootPath);
 

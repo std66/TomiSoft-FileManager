@@ -14,7 +14,7 @@
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
 
-        <ListView Margin="10" Grid.Row="2" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow" ItemsSource="{Binding}">
+        <ListView Margin="10" Grid.Row="2" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow" ItemsSource="{Binding}" PreviewMouseLeftButtonDown="ListViewClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="200" Header="Név" DisplayMemberBinding="{Binding Name}"/>
@@ -25,7 +25,7 @@
             </ListView.View>
         </ListView>
 
-        <ListView Margin="10" Grid.Row="2" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow" ItemsSource="{Binding}">
+        <ListView Margin="10" Grid.Row="2" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow" ItemsSource="{Binding}" PreviewMouseLeftButtonDown="ListViewClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="200" Header="Név" DisplayMemberBinding="{Binding Name}"/>
@@ -38,7 +38,7 @@
 
         <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="26" Name="cbDriveLeft"/>
         <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="26" Name="cbDriveRight"/>
-        <Label Content="Label" Margin="11,0,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24"/>
-        <Label Content="Label" Margin="10,0,51,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Grid.Column="1"/>
+        <Label Content="C:\" Name="lLeftPath" Margin="11,0,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24"/>
+        <Label Content="C:\" Name="lRightPath" Margin="10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Grid.Column="1"/>
     </Grid>
 </Window>

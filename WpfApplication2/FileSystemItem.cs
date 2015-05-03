@@ -32,6 +32,10 @@ namespace WpfApplication2 {
 			Contents = di;
 		}
 
+		public FileSystemItem(string Name) {
+			this.Name = Name;
+		}
+
 		private string ConvertBytes(long Value) {
 			int Index = 0;
 			while (Value > 1024) {

@@ -24,6 +24,8 @@ namespace WpfApplication2
         private readonly DirectoryHandler LeftDirectoryHandler;
         private readonly DirectoryHandler RightDirectoryHandler;
 
+		private bool IsLeftWindowActive = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -55,5 +57,17 @@ namespace WpfApplication2
 			this.LeftDirectoryHandler.Update();
 			this.RightDirectoryHandler.Update();
         }
+
+		private void ListViewClick(object sender, MouseButtonEventArgs e) {
+			ListView lw = sender as ListView;
+
+			this.IsLeftWindowActive = lw.Name == "lwLeftWindow";
+
+			lLeftPath.Foreground = (IsLeftWindowActive) ? Brushes.Red : Brushes.Black;
+			lLeftPath.Background = (IsLeftWindowActive) ? Brushes.PapayaWhip : Brushes.Transparent;
+
+			lRightPath.Foreground = (!IsLeftWindowActive) ? Brushes.Red : Brushes.Black;
+			lRightPath.Background = (!IsLeftWindowActive) ? Brushes.PapayaWhip : Brushes.Transparent;
+		}
     }
 }
