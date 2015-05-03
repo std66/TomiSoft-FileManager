@@ -7,17 +7,19 @@ using System.IO;
 
 namespace WpfApplication2 {
 	class FileSystemItem {
-		public string Name;
-		public string Extension;
-		public string Size;
-		public string LastModified;
+		private static string[] Measure = { "B", "KB", "MB", "GB", "TB", "PB" };
+
+		public string Name { get; set; }
+		public string Extension { get; set; }
+		public string Size { get; set; }
+		public string LastModified { get; set; }
 
 		public FileSystemInfo Contents;
 
 		public FileSystemItem(FileInfo fi) {
 			Name = fi.Name;
 			Extension = fi.Extension;
-			Size = fi.Length.ToString();
+			Size = this.ConvertBytes(fi.Length);
 			LastModified = fi.LastAccessTime.ToString();
 			Contents = fi;
 		}
@@ -28,6 +30,16 @@ namespace WpfApplication2 {
 			Size = "<DIR>";
 			LastModified = di.LastAccessTime.ToString();
 			Contents = di;
+		}
+
+		private string ConvertBytes(long Value) {
+			int Index = 0;
+			while (Value > 1024) {
+				Index++;
+				Value /= 1024;
+			}
+
+			return String.Format("{0} {1}", Value, FileSystemItem.Measure[Index]);
 		}
 	}
 }

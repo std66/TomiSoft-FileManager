@@ -49,8 +49,8 @@ namespace WpfApplication2
             this.LeftDirectoryHandler = new DirectoryHandler(DriveInfo.GetDrives()[0].RootDirectory.FullName);
             this.RightDirectoryHandler = new DirectoryHandler(DriveInfo.GetDrives()[0].RootDirectory.FullName);
 
-			this.lwLeftWindow.ItemsSource = this.LeftDirectoryHandler.Contents;
-			this.lwRightWindow.ItemsSource = this.RightDirectoryHandler.Contents;
+			this.lwLeftWindow.DataContext = this.LeftDirectoryHandler.Contents;
+			this.lwRightWindow.DataContext = this.RightDirectoryHandler.Contents;
 
 			this.LeftDirectoryHandler.Update();
 			this.RightDirectoryHandler.Update();

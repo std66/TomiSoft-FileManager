@@ -8,34 +8,37 @@
             <ColumnDefinition Width="39*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
 
-        <ListView Margin="10" Grid.Row="1" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow">
+        <ListView Margin="10" Grid.Row="2" Grid.Column="0" Grid.IsSharedSizeScope="True" Name="lwLeftWindow" ItemsSource="{Binding}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
-                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
-                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Path=Size}"/>
-                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastModified}"/>
+                    <GridViewColumn Width="200" Header="Név" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Extension}"/>
+                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Size}"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding LastModified}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <ListView Margin="10" Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow">
+        <ListView Margin="10" Grid.Row="2" Grid.Column="1" Grid.IsSharedSizeScope="True" Name="lwRightWindow" ItemsSource="{Binding}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Név" DisplayMemberBinding="{Binding Path=Name}"/>
-                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Path=Extension}"/>
-                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Path=Size}"/>
-                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding Path=LastModified}"/>
+                    <GridViewColumn Width="200" Header="Név" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="30" Header="Kit." DisplayMemberBinding="{Binding Extension}"/>
+                    <GridViewColumn Width="50" Header="Méret" DisplayMemberBinding="{Binding Size}"/>
+                    <GridViewColumn Width="100" Header="Módosítva" DisplayMemberBinding="{Binding LastModified}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="20" Grid.RowSpan="2" Name="cbDriveLeft"/>
-        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="20" Grid.RowSpan="2" Name="cbDriveRight"/>
+        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="26" Name="cbDriveLeft"/>
+        <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="26" Name="cbDriveRight"/>
+        <Label Content="Label" Margin="11,0,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24"/>
+        <Label Content="Label" Margin="10,0,51,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Grid.Column="1"/>
     </Grid>
 </Window>
