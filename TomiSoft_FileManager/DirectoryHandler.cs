@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
-namespace WpfApplication2 {
+namespace TomiSoft_FileManager {
 	class DirectoryHandler {
 		/// <summary>
 		/// A jelenlegi teljes útvonalat tárolja. Vigyázni kell arra, hogy mindig

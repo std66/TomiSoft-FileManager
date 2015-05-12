@@ -7,7 +7,7 @@
     <ProjectGuid>{62E08C99-8214-4C2B-BE5F-82F3DAB8DBDB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WpfApplication2</RootNamespace>
+    <RootNamespace>TomiSoft_FileManager</RootNamespace>
     <AssemblyName>WpfApplication2</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

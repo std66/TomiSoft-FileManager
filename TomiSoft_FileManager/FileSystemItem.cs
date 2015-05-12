@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace WpfApplication2 {
+namespace TomiSoft_FileManager {
 	/// <summary>
 	/// Egy fájlrendszerbeli elemet ír le
 	/// </summary>

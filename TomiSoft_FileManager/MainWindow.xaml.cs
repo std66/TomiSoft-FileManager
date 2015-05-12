@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 
-namespace WpfApplication2
+namespace TomiSoft_FileManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
