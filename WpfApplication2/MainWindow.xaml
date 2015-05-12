@@ -40,5 +40,12 @@
         <ComboBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0" VerticalAlignment="Top" Width="120" Height="26" Name="cbDriveRight" SelectionChanged="DriveChanged"/>
         <Label Content="C:\" Name="lLeftPath" Margin="11,0,10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Background="PapayaWhip" Foreground="Red"/>
         <Label Content="C:\" Name="lRightPath" Margin="10,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Grid.Column="1"/>
+
+        <Button Content="Másolás" Margin="11,0,0,10" Grid.Row="3" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom" Click="CopyClicked"/>
+        <Button Content="Átnevezés/áthelyezés" Margin="91,0,0,10" Grid.Row="3" HorizontalAlignment="Left" Width="134" Height="20" VerticalAlignment="Bottom"/>
+        <Button Content="Törlés" Margin="230,0,0,10" Grid.Row="3" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom"/>
+
+        <ProgressBar Name="pbProgress" Grid.Column="1" Margin="0,0,57,11" Grid.Row="3" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200"/>
+        <Label Name="lProgress" Content="0%" Grid.Column="1" HorizontalAlignment="Right" Margin="0,3,0,4" Grid.Row="3" Width="52"/>
     </Grid>
 </Window>

@@ -38,11 +38,34 @@ namespace WpfApplication2
 		private bool isLeftWindowActive = true;
 
 		/// <summary>
+		/// Megadja, hogy van-e művelet folyamatban.
+		/// </summary>
+		private bool operationInProgress = false;
+
+		/// <summary>
 		/// Megadja az aktív könyvtárkezelőt
 		/// </summary>
 		private DirectoryHandler ActiveDirectoryHandler {
 			get {
 				return (this.IsLeftWindowActive) ? this.LeftDirectoryHandler : this.RightDirectoryHandler;
+			}
+		}
+
+		/// <summary>
+		/// Megadja az inaktív könyvtárkezelőt
+		/// </summary>
+		private DirectoryHandler InactiveDirectoryHandler {
+			get {
+				return (!this.IsLeftWindowActive) ? this.LeftDirectoryHandler : this.RightDirectoryHandler;
+			}
+		}
+
+		/// <summary>
+		/// Megadja az aktív ListView-t.
+		/// </summary>
+		private ListView ActiveFileWindow {
+			get {
+				return (this.IsLeftWindowActive) ? this.lwLeftWindow : this.lwRightWindow;
 			}
 		}
 
@@ -208,6 +231,49 @@ namespace WpfApplication2
 		/// <param name="Message">Az ablak szövege</param>
 		private void ErrorMessage(string Title, string Message) {
 			MessageBox.Show(Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
+		/// <summary>
+		/// Ez a metódus hívódik meg, ha a júzer fájlt akar másolni
+		/// </summary>
+		/// <param name="sender">Az eseményt kiváltó nyomógomb</param>
+		/// <param name="e">Az esemény paraméterei</param>
+		private async void CopyClicked(object sender, RoutedEventArgs e) {
+			#region Ellenőrzés
+			if (this.operationInProgress) {
+				this.ErrorMessage("Hiba", "Nem indíthat új műveletet, amíg az előző nem ért véget.");
+				return;
+			}
+
+			if (this.ActiveFileWindow.SelectedItems.Count != 1)
+				return;
+
+			FileSystemItem item = this.ActiveFileWindow.SelectedItem as FileSystemItem;
+			if (item == null)
+				return;
+			#endregion
+
+			if (item.IsDir) {
+				this.ErrorMessage("Lusta voltam", "Bocsi, de ezt nem volt kedvem leprogramozni.");
+				return;
+			}
+
+			string SourceDirectory = this.ActiveDirectoryHandler.RootPath;
+			string TargetDirectory = this.InactiveDirectoryHandler.RootPath;
+
+			FileCopyManager CopyMgr = new FileCopyManager(SourceDirectory, TargetDirectory, item.Name);
+			Progress<CopyStatus> Progress = new Progress<CopyStatus>((x) => {
+				pbProgress.Maximum = x.Length;
+				pbProgress.Value = x.BytesCopied;
+				lProgress.Content = String.Format("{0}%", (int)x.ProgressInPercent);
+			});
+
+			this.operationInProgress = true;
+			await CopyMgr.CopyAsync(Progress);
+			this.operationInProgress = false;
+
+			pbProgress.Value = 0;
+			lProgress.Content = "0%";
 		}
     }
 }
