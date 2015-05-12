@@ -234,11 +234,21 @@ namespace WpfApplication2
 		}
 
 		/// <summary>
+		/// Feldob egy eldöntendő kérdést a felhasználónak
+		/// </summary>
+		/// <param name="Title">Az ablak címe</param>
+		/// <param name="Message">Az ablak szövege</param>
+		/// <returns>A felhasználó választása</returns>
+		private MessageBoxResult QuestionMessage(string Title, string Message) {
+			return MessageBox.Show(Message, Title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+		}
+
+		/// <summary>
 		/// Ez a metódus hívódik meg, ha a júzer fájlt akar másolni
 		/// </summary>
 		/// <param name="sender">Az eseményt kiváltó nyomógomb</param>
 		/// <param name="e">Az esemény paraméterei</param>
-		private async void CopyClicked(object sender, RoutedEventArgs e) {
+		private async void CopyClickedAsync(object sender, RoutedEventArgs e) {
 			#region Ellenőrzés
 			if (this.operationInProgress) {
 				this.ErrorMessage("Hiba", "Nem indíthat új műveletet, amíg az előző nem ért véget.");
@@ -269,11 +279,55 @@ namespace WpfApplication2
 			});
 
 			this.operationInProgress = true;
-			await CopyMgr.CopyAsync(Progress);
+			try {
+				await CopyMgr.CopyAsync(Progress);
+			}
+			catch (Exception ex) {
+				this.ErrorMessage(
+					"Hiba történt a másolás során",
+					String.Format("Nem sikerült másolni a következőt:\n{0}\n\n{1}", item.Name, ex.Message)
+				);
+			}
 			this.operationInProgress = false;
 
 			pbProgress.Value = 0;
 			lProgress.Content = "0%";
+		}
+
+		/// <summary>
+		/// Ez a metódus hívódik meg, ha a felhasználó törölni akar valamit
+		/// </summary>
+		/// <param name="sender">Az eseményt kiváltó nyomógomb</param>
+		/// <param name="e">Az esemény paraméterei</param>
+		private void DeleteClicked(object sender, RoutedEventArgs e) {
+			#region Ellenőrzés
+			if (this.ActiveFileWindow.SelectedItems.Count != 1)
+				return;
+
+			FileSystemItem item = this.ActiveFileWindow.SelectedItem as FileSystemItem;
+			if (item == null)
+				return;
+
+			if (this.QuestionMessage("Törlés", String.Format("Valóban törölni akarja a következőt?\n{0}", item.Name)) == MessageBoxResult.No)
+				return;
+			#endregion
+
+			try {
+				if (item.IsDir) {
+					Directory.Delete(this.ActiveDirectoryHandler.RootPath + item.Name, true);
+				}
+				else {
+					File.Delete(this.ActiveDirectoryHandler.RootPath + item.Name);
+				}
+			}
+			catch (Exception ex) {
+				this.ErrorMessage(
+					"Hiba történt a törlés során",
+					String.Format("Nem sikerült törölni a következőt:\n{0}\n\n{1}", item.Name, ex.Message)
+				);
+			}
+
+			this.ActiveDirectoryHandler.Update();
 		}
     }
 }

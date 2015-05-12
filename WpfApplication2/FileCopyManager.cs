@@ -73,8 +73,6 @@ namespace WpfApplication2 {
 		/// <param name="ProgressHandler">Egy IProgress-t megvalósító példány, amely segítségével visszajelezhető az állapot</param>
 		/// <returns></returns>
 		public async Task CopyAsync(IProgress<CopyStatus> ProgressHandler) {
-			int CopyPosition = 0;
-
 			//Megnyitjuk az olvasandó fájlt és létrehozzuk az írandó fájlt
 			using (FileStream Source = File.OpenRead(this.SourceDirectory + this.Filename))
 			using (FileStream Target = File.OpenWrite(this.TargetDirectory + this.Filename)) {
@@ -83,7 +81,6 @@ namespace WpfApplication2 {
 
 				while ((BytesRead = await Source.ReadAsync(Buffer, 0, Buffer.Length)) > 0) {
 					await Target.WriteAsync(Buffer, 0, BytesRead);
-					CopyPosition += BytesRead;
 
 					if (ProgressHandler != null)
 						ProgressHandler.Report(new CopyStatus(Source.Length, Target.Position));
