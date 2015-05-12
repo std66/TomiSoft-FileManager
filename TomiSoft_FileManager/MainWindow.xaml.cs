@@ -181,10 +181,10 @@ namespace TomiSoft_FileManager
 						//... különben megnyitjuk a könyvtárat
 						this.ActiveDirectoryHandler.OpenDir(item.Name);
 				}
-				catch (UnauthorizedAccessException ex) {
+				catch (Exception ex) {
 					//Hiba esetén visszalépünk az előző szintre
 					this.ActiveDirectoryHandler.OpenUpDir();
-					this.ErrorMessage("Jogosultság hiba", String.Format("Nem sikerült megnyitni a következő könyvtárat:\n{0}\n\nRészletes leírás:\n{1}", item.Name, ex.Message));
+					this.ErrorMessage("Nem sikerült belépni a könyvtárba", String.Format("Nem sikerült megnyitni a következő könyvtárat:\n{0}\n\nRészletes leírás:\n{1}", item.Name, ex.Message));
 				}
 			}
 			else {
