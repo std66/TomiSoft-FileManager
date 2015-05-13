@@ -81,11 +81,22 @@ namespace TomiSoft_FileManager
 			set {
 				this.isLeftWindowActive = value;
 
-				lLeftPath.Foreground = (IsLeftWindowActive) ? Brushes.Red : Brushes.Black;
-				lLeftPath.Background = (IsLeftWindowActive) ? Brushes.PapayaWhip : Brushes.Transparent;
+				lLeftPath.Background = (IsLeftWindowActive) ? this.ActiveBrush : Brushes.Transparent;
+				lRightPath.Background = (!IsLeftWindowActive) ? this.ActiveBrush : Brushes.Transparent;
+			}
+		}
 
-				lRightPath.Foreground = (!IsLeftWindowActive) ? Brushes.Red : Brushes.Black;
-				lRightPath.Background = (!IsLeftWindowActive) ? Brushes.PapayaWhip : Brushes.Transparent;
+		/// <summary>
+		/// Ez egy szép kék gradienst ad vissza.
+		/// </summary>
+		private Brush ActiveBrush {
+			get {
+				LinearGradientBrush b = new LinearGradientBrush(new GradientStopCollection() {
+					new GradientStop(Color.FromRgb(181, 218, 255), 0),
+					new GradientStop(Color.FromRgb(203, 235, 255), 1)
+				});
+
+				return b;
 			}
 		}
 
@@ -95,6 +106,8 @@ namespace TomiSoft_FileManager
         public MainWindow()
         {
             InitializeComponent();
+
+			this.IsLeftWindowActive = true;
 
 			#region Meghajtók betöltése
 			//Lekérdezzük az összes meghajtót és beállítjuk a meghajtó-kiválasztó ComboBox-okat
@@ -367,6 +380,30 @@ namespace TomiSoft_FileManager
 
 				this.ActiveDirectoryHandler.Update();
 			}
+		}
+
+		/// <summary>
+		/// Ez a metódus hívódik meg, ha a felhasználó egy új könyvtárat akar létrehozni
+		/// </summary>
+		/// <param name="sender">Az eseményt kiváltó nyomógomb</param>
+		/// <param name="e">Az esemény paraméterei</param>
+		private void NewFolderClicked(object sender, RoutedEventArgs e) {
+			StringInputDialog dlg = new StringInputDialog("Új mappa", "Adja meg a könyvtár nevét:");
+			bool? DialogResult = dlg.ShowDialog();
+
+			if (DialogResult.HasValue && DialogResult.Value) {
+				try {
+					Directory.CreateDirectory(this.ActiveDirectoryHandler.RootPath + dlg.Value);
+					this.ActiveDirectoryHandler.Update();
+				}
+				catch (Exception ex) {
+					this.ErrorMessage(
+						"Hiba a mappa létrehozása során",
+						String.Format("Nem sikerült létrehozni a könyvtárat:\n{0}\n\n{1}", dlg.Value, ex.Message)
+					);
+				}
+			}
+
 		}
     }
 }

@@ -18,22 +18,22 @@ namespace TomiSoft_FileManager {
 		/// <summary>
 		/// Az elem neve
 		/// </summary>
-		public string Name { get; set; }
+		public string Name { get; private set; }
 
 		/// <summary>
 		/// Az elem kiterjesztése
 		/// </summary>
-		public string Extension { get; set; }
+		public string Extension { get; private set; }
 
 		/// <summary>
 		/// Az elem mérete
 		/// </summary>
-		public string Size { get; set; }
+		public string Size { get; private set; }
 
 		/// <summary>
 		/// Az utolsó hozzáférés ideje
 		/// </summary>
-		public string LastModified { get; set; }
+		public string LastModified { get; private set; }
 
 		/// <summary>
 		/// Könyvtár-e az aktuális elem?
@@ -51,7 +51,12 @@ namespace TomiSoft_FileManager {
 		/// <param name="fi">A FileInfo példány, amelyből az adatokat nyerjük</param>
 		public FileSystemItem(FileInfo fi) {
 			Name = fi.Name;
-			Extension = fi.Extension;
+
+			if (fi.Extension.Length > 1)
+				Extension = fi.Extension.Substring(1, fi.Extension.Length - 1).ToLower();
+			else
+				Extension = String.Empty;
+
 			Size = this.ConvertBytes(fi.Length);
 			LastModified = fi.LastAccessTime.ToString();
 			Contents = fi;
