@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using TomiSoft_FileManager.Dialogs;
 
 namespace TomiSoft_FileManager
 {
@@ -328,6 +329,44 @@ namespace TomiSoft_FileManager
 			}
 
 			this.ActiveDirectoryHandler.Update();
+		}
+
+		/// <summary>
+		/// Ez a metódus hívódik meg, ha a felhasználó át akar nevezni egy fájlt vagy könyvtárat
+		/// </summary>
+		/// <param name="sender">Az eseményt kiváltó nyomógomb</param>
+		/// <param name="e">Az esemény paraméterei</param>
+		private void RenameClicked(object sender, RoutedEventArgs e) {
+			#region Ellenőrzés
+			if (this.ActiveFileWindow.SelectedItems.Count != 1)
+				return;
+
+			FileSystemItem item = this.ActiveFileWindow.SelectedItem as FileSystemItem;
+			if (item == null)
+				return;
+			#endregion
+
+			StringInputDialog dlg = new StringInputDialog("Átnevezés", String.Format("Adja meg az elem új nevét:\n{0}", item.Name), item.Name);
+			bool? DialogResult = dlg.ShowDialog();
+			if (DialogResult.HasValue && DialogResult.Value) {
+				string Source = this.ActiveDirectoryHandler.RootPath + item.Name;
+				string Target = this.ActiveDirectoryHandler.RootPath + dlg.Value;
+
+				try {
+					if (item.IsDir)
+						File.Move(Source, Target);
+					else
+						Directory.Move(Source, Target);
+				}
+				catch (Exception ex) {
+					this.ErrorMessage(
+						"Hiba történt az átnevezés során",
+						String.Format("Nem sikerült átnevezni az elemet:\n{0}\n\n{1}", item.Name, ex.Message)
+					);
+				}
+
+				this.ActiveDirectoryHandler.Update();
+			}
 		}
     }
 }
